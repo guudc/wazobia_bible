@@ -10,7 +10,7 @@ const dataParser = require('body-parser')
 const multer = require('multer');
 const fs = require('fs')
 router.use(dataParser.json({extended:true}))
-const path =  "web"
+const path =  __dirname.substring(0, __dirname.lastIndexOf("src")) + 'web'
 router.use((req, res, next) => {
     res.append('Access-Control-Allow-Origin', '*');
     res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -41,12 +41,10 @@ router.get("*", (req, res) =>{
     if(tm.indexOf('.html') > -1 && tm.indexOf('?') > -1) {
         tm = tm.substring(0, req.url.indexOf("?"))
     }
-    const pth = __dirname;
-    const re = __dirname.substring(0, __dirname.indexOf("src"))
-    console.log(pth + tm, re)
-     res.sendFile(re + tm);
+    const re = __dirname.substring(0, __dirname.lastIndexOf("src"))
+    console.log(path + tm, re)
     if(fs.existsSync(path + tm)){
-        res.sendFile(re + tm)
+        res.sendFile(path + tm)
     }
     else{
         res.status(404).json({

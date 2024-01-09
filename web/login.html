@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Bible App Admin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+        <!-- Icons css -->
+        <link href="assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/libs/dripicons/webfont/webfont.css" rel="stylesheet" type="text/css" />
+        <link href="assets/libs/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css" />
+
+        <!-- App css -->
+        <!-- build:css -->
+        <link href="assets/css/app.css" rel="stylesheet" type="text/css" />
+        <!-- endbuild -->
+
+    </head>
+
+    <body class="bg-account-pages">
+
+        <!-- Login -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="wrapper-page">
+                            <div class="account-pages">
+                                <div class="account-box">
+
+                                    <!-- Logo box-->
+                                    <div class="account-logo-box">
+                                        <h2 class="text-uppercase text-center">
+                                            <a href="index.php" class="text-success">
+                                                <span>BIBLE APP ADMIN</span>
+                                            </a>
+                                        </h2>
+                                    </div>
+
+                                    <div class="account-content">
+                                      
+                                            <div class="form-group mb-3">
+                                                <label for="emailaddress" class="font-weight-medium">Username</label>
+                                                <input class="form-control" id="username" type="text" required placeholder="Enter your username">
+                                            </div>
+
+                                            <div class="form-group mb-3">
+
+                                                <label for="password" class="font-weight-medium">Password</label>
+                                                <input class="form-control" type="password" required id="password" placeholder="Enter your password">
+                                            </div>
+
+
+
+                                            <div class="form-group row text-center">
+                                                <div class="col-12">
+                                                    <button id='login' onclick='butLogin()' class="btn btn-block btn-success waves-effect waves-light" type="submit" name="sign_in">Sign In</button>
+                                                </div>
+                                            </div>
+                                            <script>
+
+                                                function butLogin(){
+                                                // document.getElementById("btnlogin").setAttribute("disabled", "disabled");
+                                                var name = document.getElementById("username").value;
+                                                var password = document.getElementById("password").value;
+
+                                                const data = {
+                                                    name:name,pass:password
+                                                }
+                                                document.getElementById("login").disabled = true
+                                                document.getElementById("login").innerHTML = "Signing in...."
+                                                fetch("/login", {
+                                                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                                                    mode: 'cors', // no-cors, *cors, same-origin
+                                                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                                                    headers: {
+                                                    'Content-Type': 'application/json'
+                                                    },
+                                                    body: JSON.stringify(data)// body data type must match "Content-Type" header
+                                                }).then((response) => response.json()
+                                                .then((data) => { console.log(data)
+                                                    document.getElementById("login").disabled = false
+                                                    document.getElementById("login").innerHTML = "Sign In"
+                                                
+                                                    if(data.status == true){
+                                                        alert("Login sucessfully");
+                                                        localStorage.setItem('key', data.id)
+                                                        window.location.href = "index.html"
+                                                    }else if(data.status==false){
+                                                        alert(data.msg);
+                                                    }
+                                                    else {  
+                                                        alert("Something went wrong");
+                                                    }
+                                                }))
+                                                .catch(err => { console.log(err)
+                                                    document.getElementById("login").disabled = false
+                                                    document.getElementById("login").innerHTML = "Sign In"
+                                                    alert('Network error')
+                                                })
+                                               
+                                                }
+
+                                            </script>
+                                            
+
+                                      
+
+                                    </div> <!-- end account-content -->
+
+                                </div> <!-- end account-box -->
+                            </div>
+                            <!-- end account-page-->
+                        </div>
+                        <!-- end wrapper-page -->
+
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+            </div> <!-- end container -->
+        </section>
+        <!-- END HOME -->    
+
+
+        <!-- jQuery  -->
+        <script src="assets/libs/jquery/jquery.min.js"></script>
+        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/jquery.core.js"></script>
+        <script src="assets/js/jquery.app.js"></script>
+
+    </body>
+</html> 

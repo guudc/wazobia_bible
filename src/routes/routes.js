@@ -41,8 +41,6 @@ router.get("*", (req, res) =>{
     if(tm.indexOf('.html') > -1 && tm.indexOf('?') > -1) {
         tm = tm.substring(0, req.url.indexOf("?"))
     }
-    const re = __dirname.substring(0, __dirname.lastIndexOf("src"))
-    console.log(path + tm, re)
     if(fs.existsSync(path + tm)){
         res.sendFile(path + tm)
     }

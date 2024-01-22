@@ -5,6 +5,7 @@ const crypto = require('crypto')
 const fs = require('fs')
 const uuid = require('uuid');
 
+
 let SESSIONS = [] //stores user session
 
 //to save user
@@ -216,6 +217,32 @@ exports.removeBook = (req, res) => {
     }
     catch(e){console.log(e);res.send({status:'error',  msg:'Internal server error'})}    
 }
+//to save user to waitlist
+exports.translate = (req, res) => {
+    //to translate book
+    try{    
+        //upload the file
+        req = req.body;
+        if(req.book && req.chapter && req.verse){  
+             const bible = require('../../data/bible.json')
+             if(bible[req.book]) {
+                if(bible[req.book][req.chapter]) {
+                    if(bible[req.book][req.chapter][req.verse]) {
+                        const lang = req.lang || 'eng'
+                        res.send({status:true, data:bible[req.book][req.chapter][req.verse][lang]})
+                    }
+                    else{res.send({status:'error', msg:'No verse provided'})}
+                }
+                else{res.send({status:'error', msg:'No chapter provided'})}
+             }
+             else{res.send({status:'error', msg:'No book name provided'})}
+       
+        }
+        else{res.send({status:'error', msg:'No data provided'})}
+    }
+    catch(e){console.log(e);res.send({status:'error',  msg:'Internal server error'})}    
+}
+
 function isLogin(res, session_id, callback) {
     const username = SESSIONS[session_id];
     if(username == undefined || username == null){

@@ -304,8 +304,7 @@ class _login{
         }
     }
 }
-
+ 
 //exports modules
 exports.userDb =  new _Wallet();
-exports.loginDb = new _login();
- 
+exports.loginDb = new _login(); 

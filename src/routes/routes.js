@@ -30,7 +30,7 @@ router.post('/getadmin', controller.getAdmin)
 router.post('/modifyadmin', controller.modifyuser)
 router.post('/addbook', uploadImages.single('photo'), controller.addBook)
 router.post('/removebook', controller.removeBook)
-
+router.post('/translate', controller.translate)
 
 //listen to 404 request
 router.get("*", (req, res) =>{
